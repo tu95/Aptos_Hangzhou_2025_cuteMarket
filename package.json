@@ -9,12 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@aptos-labs/ts-sdk": "^1.12.0",
-    "@aptos-labs/wallet-adapter-react": "^3.0.0",
-    "@aptos-labs/wallet-adapter-ant-design": "^2.0.0",
-    "@martianwallet/aptos-wallet-adapter": "^0.0.5",
-    "@pontem/wallet-adapter-plugin": "^0.2.0",
-    "antd": "^5.12.0",
+    "@aptos-labs/ts-sdk": "^1.39.0",
+    "@aptos-labs/wallet-adapter-react": "^3.7.3",
+    "@aptos-labs/wallet-adapter-ant-design": "^2.2.3",
+    "petra-plugin-wallet-adapter": "^0.4.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.0"

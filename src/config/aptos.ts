@@ -5,6 +5,17 @@ const config = new AptosConfig({ network: Network.TESTNET });
 export const aptos = new Aptos(config);
 
 // 合约地址（需要替换为实际部署的合约地址）
-export const MODULE_ADDRESS = '0x1'; // TODO: 替换为实际合约地址
-export const MODULE_NAME = 'cutemarket';
+export const MODULE_ADDRESS = '0x8ebb5f208e99f14584dc352204b107f8c9570a8481cf23e830fee296bd1515cb';
+export const MODULE_NAME = 'prediction_market';
+
+// Octas 转 APT (1 APT = 100000000 Octas)
+export const OCTAS_PER_APT = 100000000;
+
+export function octasToApt(octas: number): number {
+  return octas / OCTAS_PER_APT;
+}
+
+export function aptToOctas(apt: number): number {
+  return Math.floor(apt * OCTAS_PER_APT);
+}
 

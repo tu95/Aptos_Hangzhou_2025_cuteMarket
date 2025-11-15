@@ -1,15 +1,18 @@
 import { AptosWalletAdapterProvider } from '@aptos-labs/wallet-adapter-react';
-import { MartianWallet } from '@martianwallet/aptos-wallet-adapter';
-import { PontemWallet } from '@pontem/wallet-adapter-plugin';
+import { PetraWallet } from 'petra-plugin-wallet-adapter';
+import { Network } from '@aptos-labs/ts-sdk';
 import { PropsWithChildren } from 'react';
 
 export function WalletProvider({ children }: PropsWithChildren) {
-  const wallets = [new MartianWallet(), new PontemWallet()];
+  const wallets = [new PetraWallet()];
 
   return (
     <AptosWalletAdapterProvider
       plugins={wallets}
-      autoConnect={true}
+      autoConnect={false}
+      dappConfig={{
+        network: Network.TESTNET,
+      }}
       onError={(error) => {
         console.error('Wallet error:', error);
       }}

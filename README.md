@@ -74,3 +74,117 @@ cuteMarket赢今晚比赛
 链交互：aptos SDK（v1.12+）
 样式：Tailwind CSS（简单、快速）
 状态管理：React Context 或 useState（无需 Redux）
+
+---
+
+## 📊 链上数据查询方案
+
+### 合约地址
+- **当前部署地址**: `0xe726a89a870375b2ff603505df02e9d9e412b999186df6ad46292a42069c84ac`
+- **网络**: Testnet
+
+### 查询项目信息
+
+查询单个项目的详细信息（包含投注池数据）：
+
+```bash
+aptos move view \
+  --function-id 0xe726a89a870375b2ff603505df02e9d9e412b999186df6ad46292a42069c84ac::prediction_market::get_project_info \
+  --args u64:PROJECT_ID
+```
+
+**返回格式**：`[项目ID, 结束时间戳, 是否结算, 获胜选项, [选项投注池数组]]`
+
+**示例**：
+```bash
+# 查询项目4（2026世界杯冠军）
+aptos move view \
+  --function-id 0xe726a89a870375b2ff603505df02e9d9e412b999186df6ad46292a42069c84ac::prediction_market::get_project_info \
+  --args u64:4
+```
+
+**返回结果**：
+```json
+{
+  "Result": [
+    "4",                          // 项目ID
+    "1784908800",                 // 结束时间戳
+    false,                        // 未结算
+    "0",                          // 获胜选项（未结算时为0）
+    ["5000000", "0", "0", "0"]   // 四个选项的投注池（Octas）
+  ]
+}
+```
+
+**投注池解读**：
+- `5000000` Octas = 0.05 APT（选项0有0.05 APT投注）
+- 其他选项都是 `0`（没有人投注）
+
+### 查询用户下注记录
+
+查询某个用户在某个项目的所有下注：
+
+```bash
+aptos move view \
+  --function-id 0xe726a89a870375b2ff603505df02e9d9e412b999186df6ad46292a42069c84ac::prediction_market::get_user_bets \
+  --args u64:PROJECT_ID address:USER_ADDRESS
+```
+
+**示例**：
+```bash
+# 查询地址 0xe726...84ac 在项目4的下注
+aptos move view \
+  --function-id 0xe726a89a870375b2ff603505df02e9d9e412b999186df6ad46292a42069c84ac::prediction_market::get_user_bets \
+  --args u64:4 address:0xe726a89a870375b2ff603505df02e9d9e412b999186df6ad46292a42069c84ac
+```
+
+**返回结果**：
+```json
+{
+  "Result": [
+    ["5000000"]  // 该用户下注了 5000000 Octas（0.05 APT）
+  ]
+}
+```
+
+### 批量查询所有项目
+
+使用循环查询所有5个项目：
+
+```bash
+for i in {0..4}; do
+  echo "=== 项目 $i ==="
+  aptos move view \
+    --function-id 0xe726a89a870375b2ff603505df02e9d9e412b999186df6ad46292a42069c84ac::prediction_market::get_project_info \
+    --args u64:$i
+done
+```
+
+### 使用 Aptos Explorer 查看
+
+访问以下链接查看合约资源：
+https://explorer.aptoslabs.com/account/0xe726a89a870375b2ff603505df02e9d9e412b999186df6ad46292a42069c84ac?network=testnet
+
+点击 "Resources" 标签，查看 `MarketState` 资源，可以看到所有项目和下注的完整数据。
+
+### 单位转换
+
+- 1 APT = 100,000,000 Octas
+- 0.01 APT = 1,000,000 Octas（最小下注金额）
+- 0.05 APT = 5,000,000 Octas
+
+### 测试下注示例
+
+对项目4下注 0.05 APT 到选项0：
+
+```bash
+aptos move run \
+  --function-id 0xe726a89a870375b2ff603505df02e9d9e412b999186df6ad46292a42069c84ac::prediction_market::place_bet \
+  --args u64:4 u64:0 u64:5000000 \
+  --profile YOUR_PROFILE \
+  --assume-yes
+```
+
+**成功案例**：
+- 交易哈希: `0xf095b4fa1400522dba9657471935e2b09eb8ef83f7bff50b0e781a6ab4e9f9a7`
+- 链接: https://explorer.aptoslabs.com/txn/0xf095b4fa1400522dba9657471935e2b09eb8ef83f7bff50b0e781a6ab4e9f9a7?network=testnet
