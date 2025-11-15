@@ -12,7 +12,7 @@ export const PROJECTS: Project[] = [
     id: 1,
     name: 'cuteMarket赢今晚比赛',
     options: ['赢', '输'],
-    endDate: '2025-11-15',
+    endDate: '2025-11-16',
     description: 'cuteMarket 队伍今晚的比赛结果预测',
   },
   {
@@ -26,7 +26,7 @@ export const PROJECTS: Project[] = [
     id: 3,
     name: '诺奖得主地区',
     options: ['亚洲', '欧洲', '其他'],
-    endDate: '2025-10-10',
+    endDate: '2026-10-10',
     description: '2025年诺贝尔奖得主来自哪个地区',
   },
   {
