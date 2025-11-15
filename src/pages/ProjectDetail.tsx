@@ -275,8 +275,8 @@ export function ProjectDetail() {
                         {odds && odds.odds > 0 && (
                           <div className="text-right">
                             <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-md">
-                              x{formatOdds(odds.odds)}
-                            </span>
+                            x{formatOdds(odds.odds)}
+                          </span>
                             <p className="text-xs text-gray-500 mt-1">赔率</p>
                           </div>
                         )}
@@ -286,15 +286,15 @@ export function ProjectDetail() {
                         <div>
                           <p className="text-xs text-gray-500">当前投注额</p>
                           <p className="text-lg font-bold text-purple-600">
-                            {loading ? '...' : `${pool.toFixed(2)} APT`}
-                          </p>
+                        {loading ? '...' : `${pool.toFixed(2)} APT`}
+                      </p>
                         </div>
-                        {odds && projectData && projectData.totalPool > 0 && (
+                      {odds && projectData && projectData.totalPool > 0 && (
                           <div>
                             <p className="text-xs text-gray-500">市场占比</p>
                             <p className="text-lg font-bold text-gray-700">
                               {formatProbability(odds.probability)}
-                            </p>
+                        </p>
                           </div>
                         )}
                       </div>
@@ -329,7 +329,7 @@ export function ProjectDetail() {
                         <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
                           <span className="text-2xl">💰</span>
                         </div>
-                        <div>
+                    <div>
                           <p className="text-sm text-gray-600">如果你赢了，将获得</p>
                           <p className="text-3xl font-bold text-green-600">
                             {oddsInfo[selectedOption].expectedReturn.toFixed(4)} APT
@@ -356,20 +356,20 @@ export function ProjectDetail() {
                     <div className="grid grid-cols-3 gap-4 text-center">
                       <div>
                         <p className="text-xs text-gray-600 mb-1">你的投注</p>
-                        <p className="text-lg font-bold text-gray-800">{betAmount} APT</p>
-                      </div>
-                      <div>
+                      <p className="text-lg font-bold text-gray-800">{betAmount} APT</p>
+                    </div>
+                    <div>
                         <p className="text-xs text-gray-600 mb-1">当前赔率</p>
-                        <p className="text-lg font-bold text-blue-600">
-                          x{formatOdds(oddsInfo[selectedOption].odds)}
-                        </p>
-                      </div>
-                      <div>
+                      <p className="text-lg font-bold text-blue-600">
+                        x{formatOdds(oddsInfo[selectedOption].odds)}
+                      </p>
+                    </div>
+                    <div>
                         <p className="text-xs text-gray-600 mb-1">市场占比</p>
                         <p className="text-lg font-bold text-purple-600">
                           {formatProbability(oddsInfo[selectedOption].probability)}
-                        </p>
-                      </div>
+                      </p>
+                    </div>
                     </div>
                     <p className="text-xs text-gray-500 mt-3 text-center">
                       💡 赔率会随投注池变化 | 平台手续费 2% | 结算后自动转账到你的钱包

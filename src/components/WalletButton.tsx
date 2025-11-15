@@ -1,9 +1,17 @@
-import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import { useWallet, WalletReadyState } from '@aptos-labs/wallet-adapter-react';
 import { useState } from 'react';
 
 export function WalletButton() {
   const { account, connected, wallet, connect, disconnect, wallets } = useWallet();
   const [showModal, setShowModal] = useState(false);
+
+  const walletInstallLinks: Record<string, string> = {
+    Petra: 'https://petra.app/',
+    Martian: 'https://martianwallet.xyz/',
+    Pontem: 'https://pontem.network/wallet',
+    Fewcha: 'https://fewcha.app/',
+    Rise: 'https://risewallet.io/',
+  };
 
   const formatAddress = (address: string) => {
     if (!address) return '';
@@ -11,6 +19,18 @@ export function WalletButton() {
   };
 
   const handleConnect = async (walletName: string) => {
+    const targetWallet = wallets?.find((w) => w.name === walletName);
+    if (!targetWallet) {
+      alert('未找到该钱包，请刷新页面后重试');
+      return;
+    }
+
+    if (targetWallet.readyState !== WalletReadyState.Installed) {
+      const installUrl = walletInstallLinks[walletName] || 'https://petra.app/';
+      window.open(installUrl, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
     try {
       await connect(walletName);
       setShowModal(false);
@@ -69,6 +89,9 @@ export function WalletButton() {
                 ×
               </button>
             </div>
+            <p className="text-sm text-gray-500 mb-4">
+              如果未安装钱包插件，点击钱包将跳转至下载页面。
+            </p>
             
             <div className="space-y-3">
               {wallets && wallets.length > 0 ? (
@@ -76,7 +99,11 @@ export function WalletButton() {
                   <button
                     key={w.name}
                     onClick={() => handleConnect(w.name)}
-                    className="w-full flex items-center gap-4 p-4 border-2 border-gray-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition-all"
+                    className={`w-full flex items-center gap-4 p-4 border-2 rounded-lg transition-all ${
+                      w.readyState === WalletReadyState.Installed
+                        ? 'border-gray-200 hover:border-purple-500 hover:bg-purple-50'
+                        : 'border-dashed border-gray-300 bg-gray-50 text-gray-400'
+                    }`}
                   >
                     {w.icon && (
                       <img src={w.icon} alt={w.name} className="w-10 h-10 rounded-lg" />
@@ -84,7 +111,7 @@ export function WalletButton() {
                     <div className="text-left">
                       <p className="font-bold text-gray-800">{w.name}</p>
                       <p className="text-sm text-gray-500">
-                        {w.readyState === 'Installed' ? '已安装' : '未安装'}
+                        {w.readyState === WalletReadyState.Installed ? '已安装' : '未检测到插件，点击去安装'}
                       </p>
                     </div>
                   </button>

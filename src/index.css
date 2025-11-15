@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+.marquee {
+  display: inline-flex;
+  animation: marquee 8s linear infinite;
+}
+
+.marquee.reverse {
+  animation-direction: reverse;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
