@@ -4,6 +4,7 @@ export interface Project {
   options: string[];
   endDate: string; // YYYY-MM-DD
   description?: string;
+  image?: string; // 项目图片路径
 }
 
 export enum ProjectStatus {
