@@ -44,7 +44,7 @@ export function Header() {
                     {Array.from({ length: 2 }).map((_, idx) => (
                       <span
                         key={idx}
-                        className="text-base font-semibold tracking-widest uppercase bg-white/15 text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-white to-pink-200 px-4 py-1 rounded-full border border-white/30 shadow-md"
+                        className="text-sm font-semibold tracking-[0.4em] uppercase text-white/90"
                       >
                         靠你最内行的事情获利！！！！
                       </span>

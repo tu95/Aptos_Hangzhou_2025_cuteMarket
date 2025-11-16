@@ -24,11 +24,16 @@ export function Home() {
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
                 <span className="text-4xl">💎</span>
               </div>
-              <div>
-                <p className="text-white/80 text-sm">你的投资组合</p>
-                <p className="text-3xl font-bold text-white">
+              <div className="max-w-[260px]">
+                <p className="text-white/80 text-sm leading-snug">你的投资组合</p>
+                <p className="text-3xl font-bold text-white truncate">
                   {summary.totalBet.toFixed(4)} APT
                 </p>
+                {account?.address && (
+                  <p className="text-white/70 text-xs font-mono break-all mt-1">
+                    {account.address}
+                  </p>
+                )}
               </div>
             </div>
           </div>
