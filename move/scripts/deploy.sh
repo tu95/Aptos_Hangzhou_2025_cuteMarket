@@ -48,3 +48,4 @@ echo ""
 echo "🎯 接下来需要初始化合约："
 echo "aptos move run --function-id ${ACCOUNT_ADDR}::prediction_market::initialize --assume-yes"
 
+

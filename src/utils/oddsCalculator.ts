@@ -94,3 +94,4 @@ export function calculateProfitRate(betAmount: number, expectedReturn: number): 
   return ((expectedReturn - betAmount) / betAmount) * 100;
 }
 
+
