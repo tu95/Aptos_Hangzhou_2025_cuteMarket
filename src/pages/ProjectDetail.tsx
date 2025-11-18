@@ -27,7 +27,7 @@ export function ProjectDetail() {
 
   const project = PROJECTS.find((p) => p.id === Number(id));
   const { data: projectData, loading, refetch } = useProjectData(Number(id));
-  const { userBets, totalBet, loading: loadingBets, refetch: refetchBets } = useUserBets(
+  const { userBets, totalBet, refetch: refetchBets } = useUserBets(
     account?.address,
     Number(id)
   );
@@ -38,7 +38,7 @@ export function ProjectDetail() {
     
     const betAmountNum = parseFloat(betAmount) || 0;
     
-    return projectData.optionPools.map((pool, index) => {
+    return projectData.optionPools.map((pool) => {
       const odds = calculateOdds(pool, projectData.totalPool);
       const expectedReturn = calculateExpectedReturn(
         betAmountNum,

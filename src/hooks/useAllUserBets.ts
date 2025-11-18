@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useUserBets } from './useUserBets';
 import { PROJECTS } from '../data/projects';
 
 export interface UserBetSummary {

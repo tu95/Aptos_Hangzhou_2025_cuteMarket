@@ -1,4 +1,4 @@
-import { useWallet, WalletReadyState } from '@aptos-labs/wallet-adapter-react';
+import { useWallet, WalletReadyState, WalletName } from '@aptos-labs/wallet-adapter-react';
 import { useState } from 'react';
 
 export function WalletButton() {
@@ -32,7 +32,7 @@ export function WalletButton() {
     }
 
     try {
-      await connect(walletName);
+      await connect(targetWallet.name as WalletName);
       setShowModal(false);
     } catch (error) {
       console.error('连接失败:', error);

@@ -5,7 +5,7 @@ import { useAllUserBets } from '../hooks/useAllUserBets';
 
 export function Home() {
   const { account, connected } = useWallet();
-  const { summary, loading } = useAllUserBets(account?.address);
+  const { summary } = useAllUserBets(account?.address);
 
   return (
     <div className="container mx-auto px-4 py-8">
